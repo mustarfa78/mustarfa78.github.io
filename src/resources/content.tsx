@@ -2,18 +2,18 @@ import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/
 import { Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Mustafa",
+  lastName: "Abdalruhman",
+  name: `Mustafa Abdalruhman`,
+  role: "Commerce & Statistics Student",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "Mustarfa78@gmail.com",
+  location: "Australia/Sydney", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ["English", "Arabic"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -23,27 +23,21 @@ const social: Social = [
   // Import new icons in /once-ui/icons.ts
   // Set essentials: true for links you want to show on the about page
   {
-    name: "GitHub",
-    icon: "github",
-    link: "https://github.com/once-ui-system",
-    essential: true,
-  },
-  {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/Abdalruhman",
     essential: true,
   },
   {
-    name: "Instagram",
-    icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
-    essential: false,
+    name: "CV",
+    icon: "document",
+    link: "/Mustafa_Abdalruhman_CV.pdf",
+    essential: true,
   },
   {
-    name: "Threads",
-    icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    name: "Call",
+    icon: "phone",
+    link: "tel:+61434039573",
     essential: true,
   },
   {
@@ -60,23 +54,23 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>A foothold into finance: my portfolio</>,
   featured: {
     display: true,
     title: (
       <Row gap="12" vertical="center">
-        <strong className="ml-4">Once UI</strong>{" "}
+        <strong className="ml-4">Trading Bot</strong>{" "}
         <Line background="brand-alpha-strong" vert height="20" />
         <Text marginRight="4" onBackground="brand-medium">
           Featured work
         </Text>
       </Row>
     ),
-    href: "/work/building-once-ui-a-customizable-design-system",
+    href: "/work/binance-trading-bot",
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
+    I'm Mustafa, a student at <Text as="span" size="xl" weight="strong">UNSW</Text> pursuing Finance and Statistics (Bs Commerce/Science). I'm currently developing my skillset and knowledge in the financial space through project(s), which I wanted to showcase in this website.
 </>
   ),
 };
@@ -84,7 +78,7 @@ const home: Home = {
 const about: About = {
   path: "/about",
   label: "About",
-  title: `About – ${person.name}`,
+  title: `About - ${person.name}`,
   description: `Meet ${person.name}, ${person.role} from ${person.location}`,
   tableOfContent: {
     display: true,
@@ -94,17 +88,15 @@ const about: About = {
     display: true,
   },
   calendar: {
-    display: true,
-    link: "https://cal.com",
+    display: false,
+    link: "",
   },
   intro: {
     display: true,
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        UNSW student pursuing Commerce & Science (Statistics) with a strong academic record and hands-on project experience. Currently a Student Partner at UNSW and part of Redback Racing's internal relations team. I've launched a confectionery business, worked in medical clinics, and built an algorithmic trading system from scratch in Python. Studying business and statistics to work towards a career in quantitative finance.
       </>
     ),
   },
@@ -113,41 +105,113 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "UNSW Redback Racing",
+        timeframe: "Oct 2025 - Present",
+        role: "Internal Relations",
+        logo: "/images/logos/redback.svg",
+        logoBackground: "#1a1a2e",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Part of the internal relations team for UNSW's Formula SAE racing team.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Coordinate communication between sub-teams and organise team events and logistics.
           </>,
         ],
-        images: [
-          // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "UNSW",
+        timeframe: "Oct 2025 - Present",
+        role: "Student Ambassador",
+        logo: "/images/logos/unsw_yellow.png",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Carried out engineering workshops for students as part of the Redback program.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Developed ideas into educational workshops and delivered them through presentations and collaboration.
+          </>,
+          <>
+            Sydney, Australia
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "UNSW",
+        timeframe: "Jun 2025 - Aug 2025",
+        role: "COMM1170 Student Partner",
+        logo: "/images/logos/unsw_yellow.png",
+        achievements: [
+          <>
+            Help facilitate tutorial sessions and support students in developing business communication skills.
+          </>,
+          <>
+            Sydney, Australia
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Mas Medical Clinic",
+        timeframe: "Jul 2024 - Jan 2025",
+        role: "Physician Assistant",
+        achievements: [
+          <>
+            Trained on IV injections, phlebotomy, and bandaging. Started as an unpaid intern and was hired as staff.
+          </>,
+          <>
+            Baghdad, Iraq
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Al Jadirya Pharmacy",
+        timeframe: "Jun 2024 - Sep 2024",
+        role: "Pharmacy Intern",
+        achievements: [
+          <>
+            Assisted pharmacists with dispensing, inventory management, and customer consultations.
+          </>,
+          <>
+            Baghdad, Iraq
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "Baghdadi Sweets",
+        timeframe: "Oct 2022 - Feb 2023",
+        role: "Co-founder",
+        achievements: [
+          <>
+            Partnered with the school canteen to launch a confectionery business. Grew daily revenue from $0 to $60 in the first month.
+          </>,
+          <>
+            Grew our <a href="https://www.instagram.com/baghdadi_sweets0/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--brand-on-background-strong)'}}>Instagram page</a> to market products and drive sales.
+          </>,
+          <>
+            Baghdad, Iraq
+          </>,
+        ],
+        images: [],
+      },
+      {
+        company: "eBay",
+        timeframe: "Apr 2020 - Jan 2025",
+        role: "Freelance Seller",
+        logo: "/images/logos/ebay.svg",
+        achievements: [
+          <>
+            Generated over $3k in revenue selling gaming items as a side hobby.
+          </>,
+          <>
+            250+ customers served with 50+ reviews and a 100% positive feedback rate.
+          </>,
+          <>
+            Gold Coast, Australia
           </>,
         ],
         images: [],
@@ -159,74 +223,42 @@ const about: About = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "UNSW",
+        description: <>Commerce & Science, Business & Statistics (2025). Took COMP1511 (Programming Fundamentals) as an elective to learn coding.</>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "Brisbane School of Distance Education",
+        description: <>Year 11-12 (2023-2024). ATAR: 92, scored 50/50 in the Mathematics final exam.</>,
+      },
+      {
+        name: "Baghdad College",
+        description: <>Year 11 (2022 - 2023).</>,
+      },
+      {
+        name: "Benowa State High School",
+        description: <>Year 7-10 (2019 - 2022), Gold Coast, Australia.</>,
       },
     ],
   },
   technical: {
-    display: true, // set to false to hide this section
-    title: "Technical skills",
+    display: true,
+    title: "Courses & Skills",
     skills: [
       {
-        title: "Figma",
+        title: "Python Programming",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Self-taught Python through building a full algorithmic trading system. Covers asyncio, WebSockets, REST APIs, and automated testing with pytest.</>
         ),
-        tags: [
-          {
-            name: "Figma",
-            icon: "figma",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        tags: [],
+        images: [],
       },
       {
-        title: "Next.js",
+        title: "COMP1511 - Programming Fundamentals",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>UNSW elective course covering C programming, algorithms, and data structures.</>
         ),
-        tags: [
-          {
-            name: "JavaScript",
-            icon: "javascript",
-          },
-          {
-            name: "Next.js",
-            icon: "nextjs",
-          },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
-        ],
-        // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        tags: [],
+        images: [],
       },
     ],
   },
@@ -244,7 +276,7 @@ const blog: Blog = {
 const work: Work = {
   path: "/work",
   label: "Work",
-  title: `Projects – ${person.name}`,
+  title: `Projects - ${person.name}`,
   description: `Design and dev projects by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes

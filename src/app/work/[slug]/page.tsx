@@ -16,7 +16,6 @@ import {
   Line,
 } from "@once-ui-system/core";
 import { baseURL, about, person, work } from "@/resources";
-import { formatDate } from "@/utils/formatDate";
 import { ScrollToHash, CustomMDX } from "@/components";
 import { Metadata } from "next";
 import { Projects } from "@/components/work/Projects";
@@ -97,7 +96,10 @@ export default async function Project({
           <Text variant="label-strong-m">Projects</Text>
         </SmartLink>
         <Text variant="body-default-xs" onBackground="neutral-weak" marginBottom="12">
-          {post.metadata.publishedAt && formatDate(post.metadata.publishedAt)}
+          {post.metadata.publishedAt && (() => {
+            const d = new Date(post.metadata.publishedAt + 'T00:00:00');
+            return d.toLocaleString('en-us', { month: 'long', year: 'numeric' }) + ' - Present';
+          })()}
         </Text>
         <Heading variant="display-strong-m">{post.metadata.title}</Heading>
       </Column>

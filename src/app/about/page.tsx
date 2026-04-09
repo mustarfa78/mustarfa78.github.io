@@ -211,9 +211,34 @@ export default function About() {
                 {about.work.experiences.map((experience, index) => (
                   <Column key={`${experience.company}-${experience.role}-${index}`} fillWidth>
                     <Row fillWidth horizontal="between" vertical="end" marginBottom="4">
-                      <Text id={experience.company} variant="heading-strong-l">
-                        {experience.company}
-                      </Text>
+                      <Row gap="12" vertical="center">
+                        {experience.logo && (
+                          <div style={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: 8,
+                            background: experience.logoBackground || "transparent",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                          }}>
+                            <img
+                              src={experience.logo}
+                              alt={`${experience.company} logo`}
+                              style={{
+                                width: experience.logoBackground ? 30 : 36,
+                                height: experience.logoBackground ? 30 : 36,
+                                borderRadius: 6,
+                                objectFit: "contain",
+                              }}
+                            />
+                          </div>
+                        )}
+                        <Text id={experience.company} variant="heading-strong-l">
+                          {experience.company}
+                        </Text>
+                      </Row>
                       <Text variant="heading-default-xs" onBackground="neutral-weak">
                         {experience.timeframe}
                       </Text>

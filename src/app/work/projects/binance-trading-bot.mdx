@@ -1,0 +1,401 @@
+---
+title: "Mean Reversion Crypto-Futures Trading Algorithm"
+publishedAt: "2026-02-01"
+summary: "A fully automated Python trading system that processes real-time market data, manages positions across multiple assets, and handles risk autonomously."
+images:
+  - "/images/projects/algo.png"
+team:
+  - name: "Mustafa Abdalruhman"
+    role: "Sole Developer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/Abdalruhman"
+---
+
+## What does it do?
+
+This is a trading bot I built from scratch in Python. It connects to cryptocurrency futures markets, watches price movements in real time, places orders automatically based on a quantitative strategy, and manages risk without any manual input.
+
+The whole system runs on a single process using Python's `asyncio`, which means it can handle multiple trading pairs at the same time without lag. I built it to be production-ready: it has persistent state (survives restarts), extensive logging, Telegram alerts, and 220+ automated tests.
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
+  gap: '1rem',
+  margin: '2rem 0',
+  textAlign: 'center',
+}}>
+  <div style={{
+    padding: '1.5rem 1rem',
+    borderRadius: '12px',
+    background: 'var(--neutral-alpha-weak)',
+    border: '1px solid var(--neutral-alpha-medium)',
+  }}>
+    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>220+</div>
+    <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Automated Tests</div>
+  </div>
+  <div style={{
+    padding: '1.5rem 1rem',
+    borderRadius: '12px',
+    background: 'var(--neutral-alpha-weak)',
+    border: '1px solid var(--neutral-alpha-medium)',
+  }}>
+    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>100ms</div>
+    <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Signal Latency</div>
+  </div>
+  <div style={{
+    padding: '1.5rem 1rem',
+    borderRadius: '12px',
+    background: 'var(--neutral-alpha-weak)',
+    border: '1px solid var(--neutral-alpha-medium)',
+  }}>
+    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>Multi</div>
+    <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Asset Parallel</div>
+  </div>
+</div>
+
+---
+
+## System Architecture
+
+Everything runs inside one asyncio event loop. The master process spins up a bot task for each trading pair, and all of them share the same WebSocket connections to keep things efficient.
+
+<div style={{
+  position: 'relative',
+  margin: '2rem 0',
+  padding: '2rem',
+  borderRadius: '16px',
+  background: 'var(--neutral-alpha-weak)',
+  border: '1px solid var(--neutral-alpha-medium)',
+  overflow: 'hidden',
+}}>
+
+  {/* Header */}
+  <div style={{
+    textAlign: 'center',
+    marginBottom: '1.5rem',
+    padding: '0.75rem',
+    borderRadius: '8px',
+    background: 'var(--brand-alpha-medium)',
+    border: '1px solid var(--brand-alpha-strong)',
+    fontWeight: 600,
+    fontSize: '0.95rem',
+  }}>
+    Master Orchestrator (Single Event Loop)
+  </div>
+
+  {/* Stream Layer */}
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '0.5rem',
+    marginBottom: '1rem',
+  }}>
+    {['Mark Price Stream', 'Kline Stream', 'User Data Stream', 'AggTrade Stream'].map((label) => (
+      <div key={label} style={{
+        padding: '0.6rem 0.4rem',
+        borderRadius: '8px',
+        background: 'var(--accent-alpha-medium)',
+        border: '1px solid var(--accent-alpha-strong)',
+        textAlign: 'center',
+        fontSize: '0.7rem',
+        fontWeight: 500,
+      }}>
+        {label}
+      </div>
+    ))}
+  </div>
+
+  {/* Arrow */}
+  <div style={{ textAlign: 'center', fontSize: '1.2rem', margin: '0.5rem 0', opacity: 0.5 }}>▼</div>
+
+  {/* Bot Layer */}
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '0.5rem',
+    marginBottom: '1rem',
+  }}>
+    {['Bot: Asset A', 'Bot: Asset B', 'Bot: Asset N'].map((label) => (
+      <div key={label} style={{
+        padding: '0.75rem',
+        borderRadius: '8px',
+        background: 'var(--neutral-alpha-medium)',
+        border: '1px dashed var(--neutral-alpha-strong)',
+        textAlign: 'center',
+        fontSize: '0.75rem',
+      }}>
+        {label}
+      </div>
+    ))}
+  </div>
+
+  {/* Arrow */}
+  <div style={{ textAlign: 'center', fontSize: '1.2rem', margin: '0.5rem 0', opacity: 0.5 }}>▼</div>
+
+  {/* Core Modules */}
+  <div style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gap: '0.5rem',
+  }}>
+    <div style={{
+      padding: '0.75rem',
+      borderRadius: '8px',
+      background: 'var(--brand-alpha-weak)',
+      border: '1px solid var(--brand-alpha-medium)',
+      textAlign: 'center',
+      fontSize: '0.75rem',
+    }}>
+      Strategy Engine<br/><span style={{ opacity: 0.6, fontSize: '0.65rem' }}>Signal generation & indicators</span>
+    </div>
+    <div style={{
+      padding: '0.75rem',
+      borderRadius: '8px',
+      background: 'var(--brand-alpha-weak)',
+      border: '1px solid var(--brand-alpha-medium)',
+      textAlign: 'center',
+      fontSize: '0.75rem',
+    }}>
+      Risk Manager<br/><span style={{ opacity: 0.6, fontSize: '0.65rem' }}>Position sizing & protection</span>
+    </div>
+    <div style={{
+      padding: '0.75rem',
+      borderRadius: '8px',
+      background: 'var(--brand-alpha-weak)',
+      border: '1px solid var(--brand-alpha-medium)',
+      textAlign: 'center',
+      fontSize: '0.75rem',
+    }}>
+      State Manager<br/><span style={{ opacity: 0.6, fontSize: '0.65rem' }}>Persistent JSON, crash recovery</span>
+    </div>
+    <div style={{
+      padding: '0.75rem',
+      borderRadius: '8px',
+      background: 'var(--brand-alpha-weak)',
+      border: '1px solid var(--brand-alpha-medium)',
+      textAlign: 'center',
+      fontSize: '0.75rem',
+    }}>
+      Event Bus<br/><span style={{ opacity: 0.6, fontSize: '0.65rem' }}>Logging & Telegram alerts</span>
+    </div>
+  </div>
+</div>
+
+---
+
+## Key Features
+
+### Real-Time Data via AggTrade Stream
+Instead of relying on candle-close data (which updates every few minutes), the bot subscribes to the **AggTrade WebSocket stream** and buckets individual trades into 1-second volume windows. This gives it near-instant detection of unusual market activity, like sudden volume spikes that might signal a big move. The latency from market event to bot reaction is around **100ms**.
+
+### Multi-Timeframe Momentum Filter
+The bot watches momentum indicators across two timeframes (5-minute and 15-minute). It uses a latch/unlatch mechanism: when it detects strong momentum in one direction, it "latches" and holds off on closing the position early. When momentum fades (the 15-minute histogram flips), it "unlatches" and lets the exit logic run. This prevents the bot from taking profits too early during strong trends.
+
+The cool part: the latch and unlatch signals come through live WebSocket callbacks, so the bot reacts in under a second rather than waiting for the next poll cycle.
+
+### Anomaly Detection for Black Swan Events
+The AggTrade stream also powers a spike detection system. If the bot sees abnormally high volume paired with a sharp price move on a specific exchange listing event, it immediately closes the position to avoid getting caught in a sudden crash. After that, it enters a "recovery mode" where it waits for the market to stabilise (using a WMA(7) downtrend gate), then re-enters with adjusted targets to recover the loss.
+
+### Self-Healing Data Caches
+All the indicator caches (moving averages, MACD histograms) are kept fresh through WebSocket callbacks. But if the WebSocket connection drops, the bot notices within seconds (it tracks a freshness timestamp). When data goes stale, it automatically falls back to REST API calls to reseed the cache, then picks back up from WebSocket once it reconnects. No manual restart needed.
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '1rem',
+  margin: '1.5rem 0',
+}}>
+  <div style={{
+    padding: '1.25rem',
+    borderRadius: '12px',
+    background: 'var(--neutral-alpha-weak)',
+    border: '1px solid var(--neutral-alpha-medium)',
+  }}>
+    <div style={{ fontWeight: 600, marginBottom: '0.5rem', fontSize: '0.9rem' }}>Signal Flow</div>
+    <div style={{ fontSize: '0.8rem', lineHeight: 1.6, opacity: 0.8 }}>
+      Market data → Statistical filter → Multi-timeframe check → Execute
+    </div>
+  </div>
+  <div style={{
+    padding: '1.25rem',
+    borderRadius: '12px',
+    background: 'var(--neutral-alpha-weak)',
+    border: '1px solid var(--neutral-alpha-medium)',
+  }}>
+    <div style={{ fontWeight: 600, marginBottom: '0.5rem', fontSize: '0.9rem' }}>State Machine</div>
+    <div style={{ fontSize: '0.8rem', lineHeight: 1.6, opacity: 0.8 }}>
+      Flat → Entry → Scaling → Trailing → Exit → Flat (fully deterministic)
+    </div>
+  </div>
+</div>
+
+---
+
+## Development Timeline
+
+<div style={{ borderRadius: '12px', overflow: 'hidden', margin: '2rem 0', border: '1px solid var(--neutral-alpha-medium)' }}>
+  <img src="/images/projects/algo.png" style={{ width: '100%', display: 'block' }} alt="Strategy backtesting visualization" />
+  <div style={{ padding: '0.75rem 1rem', fontSize: '0.75rem', opacity: 0.6 }}>
+    Live trading entries and exits made, plotted over historical price data
+  </div>
+</div>
+
+<div style={{
+  position: 'relative',
+  margin: '2rem 0',
+  paddingLeft: '2rem',
+  borderLeft: '2px solid var(--brand-alpha-strong)',
+}}>
+  {[
+    { stage: 'Stage 0.1', title: 'Strategy Design', desc: 'Designed the initial trading strategy and defined the system requirements. Mapped out what the bot needed to do, what data it needed, and how positions would be managed.' },
+    { stage: 'Stage 0.2', title: 'Backtesting', desc: 'Built a backtesting setup to test and iterate on the strategy against historical data. Refined parameters and fixed edge cases before risking real capital.' },
+    { stage: 'Stage 0.3', title: 'First Live Version', desc: 'Deployed the first working version with basic order execution. Simple, synchronous code — got the system running end-to-end in a real environment.' },
+    { stage: 'Stage 0.4', title: 'Multi-Process Architecture', desc: 'Rewrote into a master/worker design: one process holds execution privileges, child processes run independently per asset. Isolated credentials from strategy logic.' },
+    { stage: 'Stage 0.5', title: 'Structured Order Engine', desc: 'Built a full order lifecycle system with defined entry levels and inter-process communication. Workers declare intent; the master executes.' },
+    { stage: 'Stage 0.6', title: 'WebSocket Integration', desc: 'Added real-time data streams for price, candle, and order fill events. Replaced polling with event-driven callbacks so the bot reacts instantly to market changes.' },
+    { stage: 'Stage 0.7', title: 'State & Monitoring', desc: 'Introduced crash-resilient JSON state management and a Telegram interface for remote monitoring and control of the running fleet.' },
+    { stage: 'Stage 0.8', title: 'Production Hardening', desc: 'Addressed reliability issues discovered in live trading: automatic reconnection on stream drops, heartbeat monitoring, and graceful handling of partial failures.' },
+    { stage: 'Stage 1.0', title: 'Async Migration', desc: 'Moved the entire codebase to asyncio. Built the BotConfig system and async client/stream wrappers.' },
+    { stage: 'Stage 1.1', title: 'Limit Order Engine', desc: 'Switched from market orders to GTC limit entries. Built the UserDataStream fill pipeline and dynamic take-profit reconciliation.' },
+    { stage: 'Stage 1.2', title: 'Exit Refinement', desc: 'Added mark-price-driven trailing stops and centralised all exit logic into a single go_flat() path.' },
+    { stage: 'Stage 1.3', title: 'Broker Extraction', desc: 'Pulled all order lifecycle logic into a standalone Broker class (~1,300 lines). The bot runtime shrank to ~260 lines.' },
+    { stage: 'Stage 1.4', title: 'Event Bus', desc: 'Built an async event bus with pluggable sinks (logging, Telegram). Crash-isolated so one broken sink can\'t take down the bot.' },
+    { stage: 'Stage 1.5', title: 'MACD Math', desc: 'Implemented pure-math MACD calculation functions in strategy.py, matching the reference PineScript exactly.' },
+    { stage: 'Stage 1.6', title: 'Test Suite', desc: 'Wrote 186+ regression tests covering all 13 critical safety rules. Tests run in under 1 second.' },
+    { stage: 'Stage 1.7', title: 'Anomaly Detection', desc: 'Built the AggTrade volume spike detector and the full squeeze recovery pipeline with pseudo-fill tracking and WMA(7) re-entry gate.' },
+    { stage: 'Post', title: 'MACD WebSocket Cache', desc: 'Eliminated REST polling for indicator data. All MACD signals now come through live WebSocket callbacks with sub-second latency.' },
+  ].map((item, i) => (
+    <div key={item.stage} style={{
+      position: 'relative',
+      marginBottom: '1.5rem',
+      paddingLeft: '1.5rem',
+    }}>
+      <div style={{
+        position: 'absolute',
+        left: '-2.55rem',
+        top: '0.3rem',
+        width: '12px',
+        height: '12px',
+        borderRadius: '50%',
+        background: 'var(--brand-on-background-strong)',
+        border: '2px solid var(--page-background)',
+      }}/>
+      <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--brand-on-background-strong)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.stage}</div>
+      <div style={{ fontWeight: 600, fontSize: '0.95rem', margin: '0.15rem 0' }}>{item.title}</div>
+      <div style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: 1.5 }}>{item.desc}</div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Performance
+
+Each stage of development had a real impact on results. The early builds (stages 0.x) got the system live and trading, but performance was mixed. There was no extra filtering on entries, so the bot was taking trades it probably shouldn't have.
+
+Things improved steadily as the architecture matured. Fixing the async codebase (Stage 1.0) reduced missed signals. Tightening up exits (Stages 1.1 and 1.2) meant the bot stopped leaving money on the table. The biggest single improvement came from adding the MACD momentum filter in Stages 1.5 and the WebSocket cache update after it. That layer added around 20% to cumulative performance on its own, bringing the total to around 28%.
+
+<div style={{
+  display: 'flex',
+  justifyContent: 'center',
+  margin: '2rem 0',
+}}>
+  <div style={{ borderRadius: '16px', overflow: 'hidden', border: '1px solid var(--neutral-alpha-medium)', maxWidth: '320px', width: '100%' }}>
+    <img src="/images/projects/performance.png" style={{ width: '100%', display: 'block' }} alt="Cumulative PnL" />
+    <div style={{ padding: '0.75rem 1rem', fontSize: '0.75rem', opacity: 0.6 }}>
+      Cumulative PnL as of 10/04/2026
+    </div>
+  </div>
+</div>
+
+---
+
+## Engineering Highlights
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: '1fr',
+  gap: '0.75rem',
+  margin: '1.5rem 0',
+}}>
+  {[
+    { title: '220+ Automated Tests', desc: 'Comprehensive test suite covering 16 safety rules. Every rule exists because of a real production bug that was found and fixed.' },
+    { title: 'Protocol-Based Design', desc: 'The Broker class depends only on abstract interfaces, not concrete exchange code. This means I can backtest with historical data by swapping in a mock client.' },
+    { title: 'Real-Time WebSocket Processing', desc: 'The bot processes live trade data, kline updates, and user fills all through WebSocket callbacks. The main loop sleeps until an event wakes it up.' },
+    { title: 'Crash-Resilient State', desc: 'Every position, order ID, and fill is persisted to JSON atomically. If the bot crashes and restarts, it picks up exactly where it left off.' },
+    { title: 'Telegram Integration', desc: 'The event bus pushes fill notifications, exit alerts, and anomaly detections to Telegram in real time.' },
+  ].map((item) => (
+    <div key={item.title} style={{
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '1rem',
+      padding: '1rem 1.25rem',
+      borderRadius: '10px',
+      background: 'var(--neutral-alpha-weak)',
+      border: '1px solid var(--neutral-alpha-medium)',
+    }}>
+      <div>
+        <div style={{ fontWeight: 600, fontSize: '0.9rem', marginBottom: '0.25rem' }}>{item.title}</div>
+        <div style={{ fontSize: '0.8rem', opacity: 0.7, lineHeight: 1.5 }}>{item.desc}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+---
+
+## Upcoming Features
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gap: '1rem',
+  margin: '1.5rem 0',
+}}>
+  <div style={{
+    padding: '1.25rem',
+    borderRadius: '12px',
+    background: 'var(--accent-alpha-weak)',
+    border: '1px solid var(--accent-alpha-medium)',
+  }}>
+    <div style={{ fontWeight: 600, marginBottom: '0.5rem', fontSize: '0.9rem' }}>Funding Rate Risk Management</div>
+    <div style={{ fontSize: '0.8rem', lineHeight: 1.6, opacity: 0.8 }}>
+      Futures positions accumulate funding rate costs every 8 hours. Planning to monitor real-time funding rates and factor them into position sizing and hold duration decisions, so the bot doesn't hold losing positions where funding is eating into returns.
+    </div>
+  </div>
+  <div style={{
+    padding: '1.25rem',
+    borderRadius: '12px',
+    background: 'var(--accent-alpha-weak)',
+    border: '1px solid var(--accent-alpha-medium)',
+  }}>
+    <div style={{ fontWeight: 600, marginBottom: '0.5rem', fontSize: '0.9rem' }}>MACD Exit Strategy Refinements</div>
+    <div style={{ fontSize: '0.8rem', lineHeight: 1.6, opacity: 0.8 }}>
+      The current momentum filter uses fixed MACD parameters (12/26/9). Looking into adaptive parameters that adjust based on market volatility, and testing whether adding a third timeframe (1-hour) to the confirmation logic improves exit timing.
+    </div>
+  </div>
+</div>
+
+---
+
+## Tech Stack
+
+<div style={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '0.5rem',
+  margin: '1rem 0',
+}}>
+  {['Python', 'asyncio', 'aiohttp', 'WebSockets', 'REST APIs', 'JSON State', 'pytest', 'Telegram API'].map((tech) => (
+    <span key={tech} style={{
+      padding: '0.4rem 0.85rem',
+      borderRadius: '20px',
+      background: 'var(--brand-alpha-medium)',
+      border: '1px solid var(--brand-alpha-strong)',
+      fontSize: '0.75rem',
+      fontWeight: 500,
+    }}>
+      {tech}
+    </span>
+  ))}
+</div>
