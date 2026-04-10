@@ -30,8 +30,8 @@ The whole system runs on a single process using Python's `asyncio`, which means 
     background: 'var(--neutral-alpha-weak)',
     border: '1px solid var(--neutral-alpha-medium)',
   }}>
-    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>220+</div>
-    <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Automated Tests</div>
+    <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>1.2</div>
+    <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Sharpe Ratio</div>
   </div>
   <div style={{
     padding: '1.5rem 1rem',
@@ -51,6 +51,19 @@ The whole system runs on a single process using Python's `asyncio`, which means 
     <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--brand-on-background-strong)' }}>Multi</div>
     <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>Asset Parallel</div>
   </div>
+</div>
+
+<div style={{
+  padding: '1rem 1.25rem',
+  borderRadius: '10px',
+  background: 'var(--neutral-alpha-weak)',
+  border: '1px solid var(--neutral-alpha-medium)',
+  fontSize: '0.8rem',
+  lineHeight: 1.6,
+  opacity: 0.85,
+  margin: '1rem 0 2rem',
+}}>
+  <strong>Things to note:</strong> My focus for this and future projects is developing and researching a model more than learning to program. I utilised <strong>agentic coding</strong> for the majority of the implementation. The engineering decisions and system design are mine, the code writing was largely assisted.
 </div>
 
 ---
@@ -249,7 +262,7 @@ All the indicator caches (moving averages, MACD histograms) are kept fresh throu
   {[
     { stage: 'Stage 0.1', title: 'Strategy Design', desc: 'Designed the initial trading strategy and defined the system requirements. Mapped out what the bot needed to do, what data it needed, and how positions would be managed.' },
     { stage: 'Stage 0.2', title: 'Backtesting', desc: 'Built a backtesting setup to test and iterate on the strategy against historical data. Refined parameters and fixed edge cases before risking real capital.' },
-    { stage: 'Stage 0.3', title: 'First Live Version', desc: 'Deployed the first working version with basic order execution. Simple, synchronous code — got the system running end-to-end in a real environment.' },
+    { stage: 'Stage 0.3', title: 'First Live Version', desc: 'Deployed the first working version with basic order execution. Simple, synchronous code, got the system running end-to-end in a real environment.' },
     { stage: 'Stage 0.4', title: 'Multi-Process Architecture', desc: 'Rewrote into a master/worker design: one process holds execution privileges, child processes run independently per asset. Isolated credentials from strategy logic.' },
     { stage: 'Stage 0.5', title: 'Structured Order Engine', desc: 'Built a full order lifecycle system with defined entry levels and inter-process communication. Workers declare intent; the master executes.' },
     { stage: 'Stage 0.6', title: 'WebSocket Integration', desc: 'Added real-time data streams for price, candle, and order fill events. Replaced polling with event-driven callbacks so the bot reacts instantly to market changes.' },
@@ -260,7 +273,7 @@ All the indicator caches (moving averages, MACD histograms) are kept fresh throu
     { stage: 'Stage 1.2', title: 'Exit Refinement', desc: 'Added mark-price-driven trailing stops and centralised all exit logic into a single go_flat() path.' },
     { stage: 'Stage 1.3', title: 'Broker Extraction', desc: 'Pulled all order lifecycle logic into a standalone Broker class (~1,300 lines). The bot runtime shrank to ~260 lines.' },
     { stage: 'Stage 1.4', title: 'Event Bus', desc: 'Built an async event bus with pluggable sinks (logging, Telegram). Crash-isolated so one broken sink can\'t take down the bot.' },
-    { stage: 'Stage 1.5', title: 'MACD Math', desc: 'Implemented pure-math MACD calculation functions in strategy.py, matching the reference PineScript exactly.' },
+    { stage: 'Stage 1.5', title: 'MACD Math', desc: 'Implemented pure-math MACD calculation functions in strategy.py from scratch, verified against known reference outputs.' },
     { stage: 'Stage 1.6', title: 'Test Suite', desc: 'Wrote 186+ regression tests covering all 13 critical safety rules. Tests run in under 1 second.' },
     { stage: 'Stage 1.7', title: 'Anomaly Detection', desc: 'Built the AggTrade volume spike detector and the full squeeze recovery pipeline with pseudo-fill tracking and WMA(7) re-entry gate.' },
     { stage: 'Post', title: 'MACD WebSocket Cache', desc: 'Eliminated REST polling for indicator data. All MACD signals now come through live WebSocket callbacks with sub-second latency.' },
@@ -294,6 +307,8 @@ All the indicator caches (moving averages, MACD histograms) are kept fresh throu
 Each stage of development had a real impact on results. The early builds (stages 0.x) got the system live and trading, but performance was mixed. There was no extra filtering on entries, so the bot was taking trades it probably shouldn't have.
 
 Things improved steadily as the architecture matured. Fixing the async codebase (Stage 1.0) reduced missed signals. Tightening up exits (Stages 1.1 and 1.2) meant the bot stopped leaving money on the table. The biggest single improvement came from adding the MACD momentum filter in Stages 1.5 and the WebSocket cache update after it. That layer added around 20% to cumulative performance on its own, bringing the total to around 28%.
+
+The strategy currently sits at a **Sharpe ratio of 1.2**. The Sharpe ratio measures how much return you're getting relative to the risk taken. A ratio above 1 is generally considered decent, meaning the returns are not just the result of taking on excessive risk.
 
 <div style={{
   display: 'flex',
@@ -386,7 +401,7 @@ Things improved steadily as the architecture matured. Fixing the async codebase 
   gap: '0.5rem',
   margin: '1rem 0',
 }}>
-  {['Python', 'asyncio', 'aiohttp', 'WebSockets', 'REST APIs', 'JSON State', 'pytest', 'Telegram API'].map((tech) => (
+  {['Python', 'WebSockets', 'REST APIs', 'Telegram API'].map((tech) => (
     <span key={tech} style={{
       padding: '0.4rem 0.85rem',
       borderRadius: '20px',

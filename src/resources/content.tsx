@@ -185,12 +185,13 @@ const about: About = {
         company: "Baghdadi Sweets",
         timeframe: "Oct 2022 - Feb 2023",
         role: "Co-founder",
+        logo: "/images/logos/baghdadi.png",
         achievements: [
           <>
             Partnered with the school canteen to launch a confectionery business. Grew daily revenue from $0 to $60 in the first month.
           </>,
           <>
-            Grew our <a href="https://www.instagram.com/baghdadi_sweets0/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--brand-on-background-strong)'}}>Instagram page</a> to market products and drive sales.
+            Grew our <a href="https://www.instagram.com/baghdadi.sweets/" target="_blank" rel="noopener noreferrer" style={{color: 'var(--brand-on-background-strong)'}}>Instagram page</a> to market products and drive sales.
           </>,
           <>
             Baghdad, Iraq
@@ -245,9 +246,9 @@ const about: About = {
     title: "Courses & Skills",
     skills: [
       {
-        title: "Python Programming",
+        title: "Trading System Design and Engineering",
         description: (
-          <>Self-taught Python through building a full algorithmic trading system. Covers asyncio, WebSockets, REST APIs, and automated testing with pytest.</>
+          <>Understanding Python-based algorithmic trading system design through building my own proprietary model. Utilising agentic coding to implement my design and structure choices of the trading model.</>
         ),
         tags: [],
         images: [],

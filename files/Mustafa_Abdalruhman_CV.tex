@@ -1,0 +1,165 @@
+% ============================================================
+%  Mustafa Abdalruhman — Curriculum Vitae
+%  Compile with: pdflatex Mustafa_Abdalruhman_CV.tex
+% ============================================================
+\documentclass[11pt, a4paper]{article}
+
+\usepackage[margin=1.8cm, top=1.6cm, bottom=1.6cm]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fontawesome5}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{tabularx}
+
+% ── Colours ─────────────────────────────────────────────────
+\definecolor{heading}{RGB}{20, 20, 20}
+\definecolor{rule}{RGB}{160, 160, 160}
+\definecolor{link}{RGB}{0, 75, 150}
+\definecolor{muted}{RGB}{90, 90, 90}
+
+% ── Hyperlinks ───────────────────────────────────────────────
+\hypersetup{colorlinks=true, urlcolor=link, linkcolor=link}
+
+% ── Section headings ─────────────────────────────────────────
+\titleformat{\section}
+  {\normalsize\bfseries\color{heading}\uppercase\expandafter}
+  {}{0em}{}
+  [\vspace{1pt}\textcolor{rule}{\hrule height 0.4pt}\vspace{2pt}]
+\titlespacing{\section}{0pt}{10pt}{4pt}
+
+% ── List style ───────────────────────────────────────────────
+\setlist[itemize]{
+  leftmargin=1.4em,
+  itemsep=1pt,
+  topsep=2pt,
+  parsep=0pt,
+  label=\textendash
+}
+
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+% ── Helpers ──────────────────────────────────────────────────
+\newcommand{\role}[3]{%
+  \textbf{#1} \textemdash\ #2 \hfill \textcolor{muted}{\small #3}%
+}
+
+% ============================================================
+\begin{document}
+
+% ── HEADER ───────────────────────────────────────────────────
+{\fontsize{26pt}{28pt}\selectfont\bfseries Mustafa Abdalruhman}
+
+\vspace{5pt}
+{\small\color{muted}
+  \faPhone\enspace \href{tel:+61434039573}{0434 039 573}
+  \quad\textbar\quad
+  \faEnvelope\enspace \href{mailto:mustarfa78@gmail.com}{mustarfa78@gmail.com}
+  \quad\textbar\quad
+  \faLinkedin\enspace \href{https://www.linkedin.com/in/Abdalruhman}{linkedin.com/in/Abdalruhman}
+}
+
+\vspace{4pt}
+\textcolor{rule}{\hrule height 0.8pt}
+\vspace{10pt}
+
+% ── PROFILE ──────────────────────────────────────────────────
+\section{Profile}
+
+UNSW student pursuing Commerce \& Science (Finance \& Statistics). I have hands-on experience across entrepreneurial ventures, clinical roles, and independent quantitative projects. Currently focused on developing skills in finance and building towards a career in the field.
+
+% ── EDUCATION ────────────────────────────────────────────────
+\section{Education}
+
+\textbf{UNSW} \hfill \textcolor{muted}{\small 2025 -- Present}\\
+Bachelor of Commerce / Bachelor of Science \textemdash\ Finance \& Statistics, Sydney
+
+\medskip
+\textbf{Brisbane School of Distance Education} \hfill \textcolor{muted}{\small 2023 -- 2024}\\
+Year 11--12 \quad|\quad ATAR: 92 \quad|\quad 50/50 in Mathematics final exam
+
+\medskip
+\textbf{Baghdad College} \hfill \textcolor{muted}{\small 2022 -- 2023}\\
+Year 11, Baghdad, Iraq
+
+\medskip
+\textbf{Benowa State High School} \hfill \textcolor{muted}{\small 2019 -- 2022}\\
+Year 7--10, Gold Coast, QLD
+
+% ── PROJECTS ─────────────────────────────────────────────────
+\section{Projects}
+
+\role{Mean Reversion Crypto-Futures Trading Algorithm}{Sole Developer}{Feb 2026 -- Present}\\
+{\small\color{link}\href{https://mustarfa78.github.io/work/binance-trading-bot}{mustarfa78.github.io/work/binance-trading-bot}}
+\begin{itemize}
+  \item Designed and built a proprietary automated trading system for cryptocurrency futures markets, running live with real capital
+  \item System handles multi-asset parallel execution, real-time WebSocket data streams, and a momentum-filtered entry and exit engine
+  \item Strategy achieves a Sharpe ratio of 1.2 and 28\% cumulative PnL since deployment
+  \item All system design and strategy decisions are my own; utilised agentic coding for the majority of implementation
+\end{itemize}
+
+% ── EXPERIENCE ───────────────────────────────────────────────
+\section{Experience}
+
+\role{UNSW Redback Racing}{Internal Relations}{Oct 2025 -- Present}
+\begin{itemize}
+  \item Coordinate communication between sub-teams and organise team events and logistics for UNSW's Formula SAE racing team
+\end{itemize}
+
+\medskip
+\role{UNSW}{Student Ambassador}{Oct 2025 -- Present}
+\begin{itemize}
+  \item Developed and delivered engineering workshops for students as part of the Redback Racing outreach program
+\end{itemize}
+
+\medskip
+\role{UNSW}{COMM1170 Student Partner}{Jun 2025 -- Aug 2025}
+\begin{itemize}
+  \item Facilitated tutorial sessions supporting students in developing business communication skills
+\end{itemize}
+
+\medskip
+\role{Mas Medical Clinic}{Physician Assistant}{Jul 2024 -- Jan 2025}
+\begin{itemize}
+  \item Trained on IV injections, phlebotomy, and bandaging; began as an unpaid intern and was hired as staff
+\end{itemize}
+
+\medskip
+\role{Al Jadirya Pharmacy}{Pharmacy Intern}{Jun 2024 -- Sep 2024}
+\begin{itemize}
+  \item Assisted pharmacists with dispensing, inventory management, and patient consultations, Baghdad
+\end{itemize}
+
+\medskip
+\role{Baghdadi Sweets}{Co-founder}{Oct 2022 -- Feb 2023}
+\begin{itemize}
+  \item Partnered with the school canteen to launch a confectionery business; grew daily revenue from \$0 to \$60 in the first month
+  \item Built and managed an Instagram page to market products and drive sales
+\end{itemize}
+
+\medskip
+\role{eBay}{Freelance Seller}{Apr 2020 -- Jan 2025}
+\begin{itemize}
+  \item Generated over \$3k in revenue selling gaming items as a side hobby
+  \item 250+ customers, 50+ reviews, 100\% positive feedback rate
+\end{itemize}
+
+% ── SKILLS & LANGUAGES ───────────────────────────────────────
+\section{Skills \& Languages}
+
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+  \textbf{Languages} & Arabic (native fluency), English (fluent) \\[3pt]
+  \textbf{Technical}  & Python, algorithmic trading system design, asyncio, WebSockets \\
+\end{tabularx}
+
+% ── INTERESTS ────────────────────────────────────────────────
+\section{Interests \& Activities}
+
+Business Society (UNSW) \textemdash\ Member
+\quad|\quad
+Table Tennis \textemdash\ Pursued competitively (2022--2023)
+
+\end{document}
