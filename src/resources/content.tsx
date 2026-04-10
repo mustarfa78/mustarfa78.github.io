@@ -96,7 +96,7 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        UNSW student pursuing Commerce & Science (Statistics) with a strong academic record and hands-on project experience. Currently a Student Partner at UNSW and part of Redback Racing's internal relations team. I've launched a confectionery business, worked in medical clinics, and built an algorithmic trading system from scratch in Python. Studying business and statistics to work towards a career in quantitative finance.
+        UNSW student pursuing Commerce & Science (Finance & Statistics) and part of Redback Racing's internal relations team. I've launched a confectionery business, worked in medical clinics, and built an algorithmic trading system in Python. Studying finance and statistics to work towards a career in the field.
       </>
     ),
   },
